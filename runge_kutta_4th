@@ -1,0 +1,12 @@
+function [x,y]=runge_kutta(F_xy,y0,h,a,b)
+n=floor((b-a)/h);       %步数
+x(1)=a;                 %时间起点
+y(:,1)=y0;              %赋初值
+for i=1:n               %四阶龙格库塔方法进行数值求解    
+    x(i+1)=x(i)+h;    
+    k1=F_xy(x(i),y(:,i));  
+    k2=F_xy(x(i)+h/2,y(:,i)+h*k1/2);    
+    k3=F_xy(x(i)+h/2,y(:,i)+h*k2/2);   
+    k4=F_xy(x(i)+h,y(:,i)+h*k3);   
+    y(:,i+1)=y(:,i)+h*(k1+2*k2+2*k3+k4)/6;
+end
